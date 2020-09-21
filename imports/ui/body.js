@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 
@@ -29,7 +30,7 @@ Template.body.events({
     'submit .new-task'(event) {
         //prevent default browser form submit
         event.preventDefault();
-        console.log(event.target.text);
+        // console.log(event.target.text);
 
         //get value from form element
         const target = event.target;
@@ -39,6 +40,8 @@ Template.body.events({
         Tasks.insert({
             text,
             createdAt: new Date(), //current time
+            owner: Meteor.userId(),
+            username: Meteor.user().username,
         });
 
         //clear form
